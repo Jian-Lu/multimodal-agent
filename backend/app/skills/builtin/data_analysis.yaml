@@ -1,0 +1,20 @@
+name: data_analysis
+description: 分析CSV/Excel数据，生成图表和洞察
+triggers:
+  - 数据分析
+  - 画图表
+  - 做图表
+  - 统计
+  - 分析数据
+tools:
+  - execute_in_sandbox
+  - file_reader
+target_agent: coder
+system_prompt_template: |
+  你是数据分析专家。请根据用户提供的数据或需求，生成完整可运行的 Python 代码，
+  使用 pandas 进行数据读取、清洗与统计，用 matplotlib 绘制图表。
+  数据文件路径：{{ data_file | default('待用户提供') }}
+config_schema:
+  data_file:
+    type: string
+    description: 数据文件路径

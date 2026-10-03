@@ -1,0 +1,86 @@
+[
+  {
+    "id": "q001",
+    "agent": "coder",
+    "judge": "code",
+    "input": "用 Python 写一个二分查找函数 binary_search(arr, target): 在升序列表中查找目标下标, 不存在返回 -1。",
+    "reference": "```python\ndef binary_search(arr, target):\n    left, right = 0, len(arr) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1\n```\n时间复杂度 O(log n), 空间 O(1)。"
+  },
+  {
+    "id": "q002",
+    "agent": "coder",
+    "judge": "code",
+    "input": "下面的 Python 代码想统计字符串中每个字符出现次数并返回出现最多的字符, 但它有 bug, 请修复:\n```python\ndef most_common(s):\n    counts = {}\n    for ch in s:\n        counts[ch] = counts.get(ch, 0)  # 忘了 +1\n    return max(counts, key=counts.get) if counts else None\n```",
+    "reference": "```python\ndef most_common(s):\n    counts = {}\n    for ch in s:\n        counts[ch] = counts.get(ch, 0) + 1\n    return max(counts, key=counts.get) if counts else None\n```\n修复点: 原代码统计时把 counts.get(ch, 0) 直接赋值, 遗漏了 +1, 导致所有计数恒为 0 或 1; 改为 counts.get(ch, 0) + 1 即可。空字符串返回 None。"
+  },
+  {
+    "id": "q003",
+    "agent": "coder",
+    "judge": "code",
+    "input": "用 Python 写一个 O(n) 的斐波那契函数 fib(n), 返回第 n 项(从 0 开始), 避免递归爆栈, n<0 时抛 ValueError。",
+    "reference": "```python\ndef fib(n):\n    if n < 0:\n        raise ValueError('n must be >= 0')\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n```\n迭代解法避免深递归, 时间 O(n), 空间 O(1); fib(0)=0, fib(1)=1。"
+  },
+  {
+    "id": "q004",
+    "agent": "coder",
+    "judge": "code",
+    "input": "实现 Python 函数 safe_divide(a, b): 正常返回 a/b; 除零或类型非法时返回 None, 不抛异常。",
+    "reference": "```python\ndef safe_divide(a, b):\n    try:\n        return a / b\n    except (ZeroDivisionError, TypeError):\n        return None\n```\nsafe_divide(10, 2) -> 5.0; safe_divide(1, 0) -> None; safe_divide('x', 2) -> None。"
+  },
+  {
+    "id": "q005",
+    "agent": "writer",
+    "judge": "writing",
+    "input": "请生成一份《Python 虚拟环境使用指南》的 Markdown 文档: 说明为什么要用虚拟环境、如何创建/激活/退出、常用命令表格, 并配一张 mermaid 流程图说明工作流。",
+    "reference": "# Python 虚拟环境使用指南\n\n## 为什么要用虚拟环境\n\n- **依赖隔离**: 不同项目可锁定各自的第三方包版本, 互不污染。\n- **可复现构建**: requirements.txt 记录环境快照, 换机/上线可一键还原。\n- **权限友好**: 无需管理员权限即可在项目内安装包。\n\n## 核心命令一览\n\n| 操作 | 命令 | 说明 |\n| --- | --- | --- |\n| 创建 | python -m venv .venv | 在当前目录生成独立环境 |\n| 激活 (Windows) | .venv/Scripts/activate | 进入该环境 |\n| 激活 (Linux/macOS) | source .venv/bin/activate | 进入该环境 |\n| 退出 | deactivate | 离开当前环境 |\n| 导出依赖 | pip freeze > requirements.txt | 记录依赖快照 |\n\n## 工作流\n\n1. 创建虚拟环境并激活。\n2. 按需安装依赖并进行开发。\n3. 冻结依赖到 requirements.txt。\n4. 提交代码与依赖清单到版本库。\n\n## 流程图\n\n```mermaid\nflowchart LR\n  A[创建 venv] --> B[激活] --> C[安装依赖] --> D[开发] --> E[冻结依赖]\n```"
+  },
+  {
+    "id": "q006",
+    "agent": "writer",
+    "judge": "writing",
+    "input": "对比 SQLite 与 PostgreSQL, 产出一份《数据库选型报告》Markdown: 从使用场景、并发能力、功能特性对比, 给出选型建议, 附 mermaid 决策流程。",
+    "reference": "# 数据库选型报告: SQLite vs PostgreSQL\n\n## 一、定位差异\n\nSQLite 是**嵌入式单机数据库**, PostgreSQL 是**客户端-服务端关系型数据库**, 二者面向的场景不同。\n\n## 二、对比\n\n| 维度 | SQLite | PostgreSQL |\n| --- | --- | --- |\n| 部署 | 零配置, 库即文件 | 独立服务进程 |\n| 并发写入 | 弱, 单写者 | 强, MVCC 多写并发 |\n| 数据类型 | 轻量子集 | 丰富(JSON/数组/几何等) |\n| 适用 | 单机/移动端/嵌入 | Web 高并发/多人协作 |\n\n## 三、选型建议\n\n- **选 SQLite**: 原型、嵌入式设备、低并发读写、数据不跨多进程。\n- **选 PostgreSQL**: 高并发 Web 服务、需要复杂查询与扩展类型、团队共享数据。\n\n## 决策流程\n\n```mermaid\nflowchart TD\n  A{是否多用户高并发?} -->|是| B[PostgreSQL]\n  A -->|否| C{是否需要复杂类型与分布式?}\n  C -->|是| B\n  C -->|否| D[SQLite]\n```"
+  },
+  {
+    "id": "q007",
+    "agent": "writer",
+    "judge": "writing",
+    "input": "帮我写一篇简短的技术周报: 本周回顾 + 下周计划, 使用 Markdown 标题、列表与粗体, 语气专业简洁。",
+    "reference": "# 技术周报 (2026-08-31 ~ 09-04)\n\n## 本周回顾\n\n- **路由评估体系 Layer2**: 完成 routing_golden 与语义决策层评测, 全量用例落库。\n- **性能埋点**: 打通 MCP 调用与 Supervisor 延迟采集, 面板可查 p95/p99。\n- **线上问题**: 修复 WebSearch 缓存空结果导致的二次请求, 并补回归用例。\n\n## 下周计划\n\n1. 建设 **Layer3 输出质量评估**: 引入 LLM Judge 与 3 套判分模板。\n2. 推进前端 **EvaluationView** 报告可视化。\n3. 复查 RAG 检索在长文档场景下的切分质量。\n\n## 风险与求助\n\n- RAG 召回率依赖 embedding 模型, 计划下周做一次小规模对比实验。"
+  },
+  {
+    "id": "q008",
+    "agent": "writer",
+    "judge": "writing",
+    "input": "解释设计模式中的观察者模式: 用生活例子(如新闻订阅)类比, 说明适用场景, 配 mermaid 时序图。",
+    "reference": "# 观察者模式\n\n## 概念\n\n观察者模式定义**一对多依赖**: 一个主题(Subject)状态变化时, 自动通知并更新所有观察者(Observer), 二者解耦。\n\n## 生活类比: 新闻订阅\n\n把**报社**看作主题, **读者**看作观察者。读者订阅后, 报社一发新刊即送达, 无需读者反复上门询问; 取消订阅则不再打扰。\n\n## 适用场景\n\n- 事件驱动 UI(按钮点击 -> 各监听器响应)。\n- 发布-订阅消息、状态同步(如聊天室用户列表)。\n- 需要一对多联动且不希望主题反向依赖观察者时。\n\n## 时序\n\n```mermaid\nsequenceDiagram\n  participant Sub as 主题\n  participant A as 观察者A\n  participant B as 观察者B\n  Sub->>A: 订阅\n  Sub->>B: 订阅\n  Sub->>Sub: 状态变更\n  Sub-->>A: notify()\n  Sub-->>B: notify()\n```"
+  },
+  {
+    "id": "q009",
+    "agent": "web_search",
+    "judge": "search",
+    "input": "搜索 2026 年主流前端框架与趋势, 汇总 3-4 个关键点, 每个观点给出引用来源。",
+    "reference": "2026 年前端框架趋势要点:\n\n1. React 生态仍是市场份额第一, 但新项目选型更多元化。 [1]\n2. Vue 3 + Vite 组合在中小团队普及, 构建速度与组合式 API 受认可。 [2]\n3. 元框架与 SSR 成为默认选项, Next.js/Nuxt/Astro 增长明显。 [1]\n4. AI 辅助生成 UI 让组件自动化程度提升, 设计到代码链路缩短。 [3]\n\n来源:\n[1] https://example.com/state-of-js-2026\n[2] https://example.com/vue-ecosystem-report\n[3] https://example.com/ai-frontend-trends"
+  },
+  {
+    "id": "q010",
+    "agent": "web_search",
+    "judge": "search",
+    "input": "搜索 Python 3.13 的主要新特性, 列出 3 个亮点并标注引用来源。",
+    "reference": "Python 3.13 主要亮点:\n\n1. 实验性的自由线程(no-GIL)构建选项, 允许解释器并行执行线程。 [1]\n2. 交互式解释器大幅增强: 多行编辑、语法高亮与彩色回溯。 [1]\n3. 类型系统改进, 包括新的类型参数默认值与类型注解持久化 PEP 649。 [2]\n\n来源:\n[1] https://example.com/python-3.13-release\n[2] https://example.com/pep-0649-type-defaults"
+  },
+  {
+    "id": "q011",
+    "agent": "web_search",
+    "judge": "search",
+    "input": "搜索 AI Agent 在企业落地的主要挑战, 归纳为 3-4 类, 每类给出引用来源。",
+    "reference": "AI Agent 企业落地的主要挑战:\n\n1. **可靠性与幻觉**: 长链路推理易累积错误, 需要评估护栏与人工兜底。 [1]\n2. **权限与安全**: Agent 调用工具/系统的权限边界难以收敛, 存在越权风险。 [2]\n3. **评测与观测**: 缺乏端到端可复现的评测集, 迭代回归难以度量。 [3]\n4. **成本控制**: 多轮工具调用导致 token 成本与延迟显著上升。 [1]\n\n来源:\n[1] https://example.com/agent-reliability-survey\n[2] https://example.com/agent-security-report\n[3] https://example.com/llm-evaluation-practice"
+  },
+  {
+    "id": "q012",
+    "agent": "web_search",
+    "judge": "search",
+    "input": "对比 LangGraph 与 CrewAI 两个多智能体编排框架, 从抽象层次、状态管理、生态三方面说明差异, 给出引用来源。",
+    "reference": "LangGraph vs CrewAI 对比:\n\n1. **抽象层次**: LangGraph 提供低层图(StateGraph)原语, 可精确控制节点/条件边; CrewAI 更上层, 以 Crew/Agent/Task 声明式组合为主。 [1]\n2. **状态管理**: LangGraph 自带持久化 checkpoint 与图状态类型; CrewAI 状态主要流转于任务结果, 显式状态管理能力较弱。 [2]\n3. **生态与集成**: LangGraph 深度绑定 LangChain 工具生态与 LangSmith 可观测; CrewAI 上手快, 内置角色扮演与流程编排。 [1]\n\n来源:\n[1] https://example.com/langgraph-vs-crewai\n[2] https://example.com/agent-framework-comparison"
+  }
+]

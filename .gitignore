@@ -1,0 +1,32 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.mypy_cache/
+.pytest_cache/
+
+# ===== 环境与密钥 =====
+.env
+
+# ===== 数据 (SQLite / Chroma) =====
+backend/data/
+data/
+*.db
+*.sqlite3
+
+# ===== Node / 前端 =====
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# ===== IDE / 编辑器 =====
+.idea/
+.vscode/
+*.swp
+
+# ===== 系统 =====
+.DS_Store
+Thumbs.db

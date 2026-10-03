@@ -1,0 +1,46 @@
+# =========================================================
+# Agent-Harness 后端依赖
+# 说明: Phase 1 仅需安装「Web 框架 + 数据库 + 鉴权」部分;
+#       AI/向量/沙箱/文档解析 依赖在 Phase 2/3 按需安装。
+# 环境: conda graph312 (Python 3.12)
+# =========================================================
+
+# ---------- Web 框架 ----------
+fastapi>=0.115
+uvicorn[standard]>=0.32
+python-multipart>=0.0.9
+pydantic>=2.9,<3
+pydantic-settings>=2.5,<3
+email-validator>=2.2
+
+# ---------- 数据库 ----------
+sqlalchemy>=2.0,<2.1
+aiosqlite>=0.20
+asyncpg>=0.30
+alembic>=1.14
+
+# ---------- 鉴权 ----------
+python-jose[cryptography]>=3.3
+bcrypt>=4.0
+
+# ---------- AI / 编排 (Phase 2) ----------
+langchain>=0.3
+langgraph>=0.2
+langchain-openai>=0.2
+langchain-ollama>=0.2
+langchain-community>=0.3
+
+# ---------- 向量数据库 (Phase 3) ----------
+chromadb>=0.5
+
+# ---------- 沙箱 (Phase 2) ----------
+e2b-code-interpreter>=1.0
+docker>=7.0
+
+# ---------- 文档解析 (Phase 3) ----------
+pypdf>=5.0
+python-docx>=1.1
+
+# ---------- MCP 集成 (Phase 11) ----------
+mcp>=1.0.0              # MCP 官方 Python SDK (stdio/sse/streamable_http)
+cryptography>=41.0      # Fernet 加密(敏感字段)

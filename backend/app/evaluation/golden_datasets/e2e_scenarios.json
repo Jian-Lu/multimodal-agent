@@ -1,0 +1,149 @@
+[
+  {
+    "id": "e001",
+    "name": "快排代码生成并沙箱执行",
+    "category": "coding",
+    "mode": "chat",
+    "input": "用 Python 写一个快速排序函数 quicksort, 并对 [3, 1, 4, 1, 5, 9, 2, 6] 排序后输出结果。",
+    "checks": [
+      {"type": "routing_check", "expected": "coder"},
+      {"type": "multi_agent_check", "agents": ["coder", "sandbox"]},
+      {"type": "output_pattern", "pattern": "```python"},
+      {"type": "format_check", "min_length": 40, "must_not": ["Traceback", "搜索服务暂时不可用"]}
+    ]
+  },
+  {
+    "id": "e002",
+    "name": "代码 bug 修复",
+    "category": "coding",
+    "mode": "chat",
+    "input": "我有一段 Python 代码想统计字符串中最常见的字符, 但结果不对, 请修复这个 bug 并解释。",
+    "checks": [
+      {"type": "routing_check", "expected": "coder"},
+      {"type": "output_pattern", "pattern": "```python"},
+      {"type": "format_check", "min_length": 20, "must_not": ["Traceback"]}
+    ]
+  },
+  {
+    "id": "e003",
+    "name": "CSV 统计脚本并执行",
+    "category": "coding",
+    "mode": "chat",
+    "input": "用 Python 写一个脚本: 读取 data.csv 的 numeric 列并输出 平均分/最大值/最小值, 请直接运行验证。",
+    "checks": [
+      {"type": "routing_check", "expected": "coder"},
+      {"type": "multi_agent_check", "agents": ["coder", "sandbox"]},
+      {"type": "output_pattern", "pattern": "```python"},
+      {"type": "format_check", "min_length": 30}
+    ]
+  },
+  {
+    "id": "e004",
+    "name": "搜索 AI Agent 落地趋势并生成报告",
+    "category": "report",
+    "mode": "chat",
+    "input": "搜索 2026 年 AI Agent 在企业落地的主要趋势, 并根据搜索结果为团队撰写一份 Markdown 总结报告。",
+    "checks": [
+      {"type": "routing_check", "expected": "web_search"},
+      {"type": "multi_agent_check", "agents": ["web_search", "writer"]},
+      {"type": "output_pattern", "pattern": "##"},
+      {"type": "format_check", "min_length": 60, "must_not": ["搜索服务暂时不可用"]}
+    ]
+  },
+  {
+    "id": "e005",
+    "name": "Python 版本对比报告",
+    "category": "report",
+    "mode": "chat",
+    "input": "搜索 Python 3.13 与 3.12 的主要差异, 然后写一份包含对比表格的 Markdown 报告。",
+    "checks": [
+      {"type": "routing_check", "expected": "web_search"},
+      {"type": "multi_agent_check", "agents": ["web_search", "writer"]},
+      {"type": "output_pattern", "pattern": "##"},
+      {"type": "format_check", "min_length": 60}
+    ]
+  },
+  {
+    "id": "e006",
+    "name": "PostgreSQL 部署指南文档",
+    "category": "document",
+    "mode": "document",
+    "input": "生成一份《PostgreSQL 生产部署指南》Markdown 文档, 包含部署步骤、配置项表格与 mermaid 架构图。",
+    "checks": [
+      {"type": "routing_check", "expected": "writer"},
+      {"type": "output_pattern", "pattern": "##"},
+      {"type": "format_check", "min_length": 60, "must_not": ["Traceback"]}
+    ]
+  },
+  {
+    "id": "e007",
+    "name": "SQLite vs PostgreSQL 选型报告文档",
+    "category": "document",
+    "mode": "document",
+    "input": "撰写一份《SQLite 与 PostgreSQL 选型对比》文档: 含对比表格、适用场景与最终建议。",
+    "checks": [
+      {"type": "routing_check", "expected": "writer"},
+      {"type": "output_pattern", "pattern": "##"},
+      {"type": "format_check", "min_length": 60}
+    ]
+  },
+  {
+    "id": "e008",
+    "name": "GitHub issue 查询",
+    "category": "rag_mcp",
+    "mode": "chat",
+    "input": "用 GitHub MCP 查看 langchain-ai/langchain 仓库最近 5 个 open issue 的标题。",
+    "checks": [
+      {"type": "routing_check", "expected": "rag"},
+      {"type": "multi_agent_check", "agents": ["rag"]},
+      {"type": "mcp_tool_check", "tool": "mcp_github_"},
+      {"type": "format_check", "min_length": 10}
+    ]
+  },
+  {
+    "id": "e009",
+    "name": "GitHub 仓库信息查询",
+    "category": "rag_mcp",
+    "mode": "chat",
+    "input": "通过 GitHub MCP 工具查询仓库 facebook/react 的 star 数与最近更新时间。",
+    "checks": [
+      {"type": "routing_check", "expected": "rag"},
+      {"type": "mcp_tool_check", "tool": "mcp_github_"},
+      {"type": "format_check", "min_length": 10}
+    ]
+  },
+  {
+    "id": "e010",
+    "name": "前端框架趋势问答",
+    "category": "web_search",
+    "mode": "chat",
+    "input": "搜索一下 2026 年最流行的前端框架有哪几个? 简短回答即可。",
+    "checks": [
+      {"type": "routing_check", "expected": "web_search"},
+      {"type": "format_check", "min_length": 20, "must_not": ["搜索服务暂时不可用"]}
+    ]
+  },
+  {
+    "id": "e011",
+    "name": "道别对话",
+    "category": "finish",
+    "mode": "chat",
+    "input": "再见, 今天谢谢你的帮助!",
+    "checks": [
+      {"type": "routing_check", "expected": "finish"}
+    ]
+  },
+  {
+    "id": "e012",
+    "name": "API 设计规范文档",
+    "category": "document",
+    "mode": "document",
+    "input": "撰写《RESTful API 设计规范》Markdown 文档: 资源命名、状态码约定、错误格式与示例。",
+    "checks": [
+      {"type": "routing_check", "expected": "writer"},
+      {"type": "multi_agent_check", "agents": ["writer"]},
+      {"type": "output_pattern", "pattern": "##"},
+      {"type": "format_check", "min_length": 60, "must_not": ["Traceback"]}
+    ]
+  }
+]

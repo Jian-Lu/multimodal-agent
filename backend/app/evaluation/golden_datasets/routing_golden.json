@@ -1,0 +1,342 @@
+[
+  {
+    "id": "r001",
+    "input": "帮我写一个 Python 快速排序函数，输入一个整数列表，返回升序排列",
+    "expected_agent": "coder",
+    "expected_skill": null,
+    "category": "coder",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r002",
+    "input": "写个 Python 脚本，批量重命名目录下的所有 jpg 文件",
+    "expected_agent": "coder",
+    "expected_skill": null,
+    "category": "coder",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r003",
+    "input": "这个代码有 bug，帮我修复一下这段二分查找的实现",
+    "expected_agent": "coder",
+    "expected_skill": null,
+    "category": "coder",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r004",
+    "input": "用 JavaScript 实现一个防抖函数 debounce",
+    "expected_agent": "coder",
+    "expected_skill": null,
+    "category": "coder",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r005",
+    "input": "写一段 SQL 查询最近 7 天每个分类的销售额汇总",
+    "expected_agent": "coder",
+    "expected_skill": null,
+    "category": "coder",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r006",
+    "input": "帮我实现一个简单的 LRU 缓存类，支持 get 和 put",
+    "expected_agent": "coder",
+    "expected_skill": null,
+    "category": "coder",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r007",
+    "input": "搜索一下 2026 年诺贝尔物理学奖得主是谁",
+    "expected_agent": "web_search",
+    "expected_skill": null,
+    "category": "web_search",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r008",
+    "input": "查一下最新的 Python 3.13 发布了哪些新特性",
+    "expected_agent": "web_search",
+    "expected_skill": null,
+    "category": "web_search",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r009",
+    "input": "最近人工智能行业有什么大新闻，帮我搜一下",
+    "expected_agent": "web_search",
+    "expected_skill": null,
+    "category": "web_search",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r010",
+    "input": "搜一下明天的天气怎么样",
+    "expected_agent": "web_search",
+    "expected_skill": null,
+    "category": "web_search",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r011",
+    "input": "帮我查一下 2025 年全球智能手机出货量排名",
+    "expected_agent": "web_search",
+    "expected_skill": null,
+    "category": "web_search",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r012",
+    "input": "查一下 langchain-ai/langchain 仓库最近开的 5 个 issue",
+    "expected_agent": "mcp_github",
+    "expected_skill": null,
+    "category": "mcp_github",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r013",
+    "input": "帮我在 apache/spark 仓库提一个 issue，标题是文档链接失效",
+    "expected_agent": "mcp_github",
+    "expected_skill": null,
+    "category": "mcp_github",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r014",
+    "input": "列出 facebook/react 仓库 open 状态的 PR 列表",
+    "expected_agent": "mcp_github",
+    "expected_skill": null,
+    "category": "mcp_github",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r015",
+    "input": "查一下 torvalds/linux 仓库的 star 数和最近提交",
+    "expected_agent": "mcp_github",
+    "expected_skill": null,
+    "category": "mcp_github",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r016",
+    "input": "用 GitHub API 查 microsoft/vscode 仓库的贡献者列表",
+    "expected_agent": "mcp_github",
+    "expected_skill": null,
+    "category": "mcp_github",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r017",
+    "input": "基于知识库里关于微服务的资料，介绍什么是分布式事务",
+    "expected_agent": "rag",
+    "expected_skill": null,
+    "category": "rag",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r018",
+    "input": "结合我上传的简历文档，帮我分析哪些技能最值得写在求职信里",
+    "expected_agent": "rag",
+    "expected_skill": null,
+    "category": "rag",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r019",
+    "input": "请根据知识库回答：高并发系统如何做限流？",
+    "expected_agent": "rag",
+    "expected_skill": null,
+    "category": "rag",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r020",
+    "input": "从我的文档里找出上次周会提到的三个待办事项",
+    "expected_agent": "rag",
+    "expected_skill": null,
+    "category": "rag",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r021",
+    "input": "我不太确定，你看着办吧，随便回答我一个问题就行",
+    "expected_agent": "rag",
+    "expected_skill": null,
+    "category": "rag",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r022",
+    "input": "帮我写一份关于 2026 上半年市场回顾的正式报告",
+    "expected_agent": "writer",
+    "expected_skill": null,
+    "category": "writer",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r023",
+    "input": "生成一份 Markdown 文档，总结季度 OKR 的达成情况",
+    "expected_agent": "writer",
+    "expected_skill": null,
+    "category": "writer",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r024",
+    "input": "把下面几段零散内容整理成结构清晰的项目复盘文档",
+    "expected_agent": "writer",
+    "expected_skill": null,
+    "category": "writer",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r025",
+    "input": "整理会议纪要，输出一份书面总结",
+    "expected_agent": "writer",
+    "expected_skill": null,
+    "category": "writer",
+    "mode": "document",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r026",
+    "input": "这张图片里有什么内容，帮我描述一下",
+    "expected_agent": "vision",
+    "expected_skill": null,
+    "category": "vision",
+    "mode": "chat",
+    "images": true,
+    "iteration": null
+  },
+  {
+    "id": "r027",
+    "input": "请识别这张照片中的物体并说明场景",
+    "expected_agent": "vision",
+    "expected_skill": null,
+    "category": "vision",
+    "mode": "chat",
+    "images": true,
+    "iteration": null
+  },
+  {
+    "id": "r028",
+    "input": "谢谢你的解答，没有其他问题了",
+    "expected_agent": "finish",
+    "expected_skill": null,
+    "category": "finish",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r029",
+    "input": "继续生成代码并执行验证",
+    "expected_agent": "finish",
+    "expected_skill": null,
+    "category": "finish",
+    "mode": "chat",
+    "images": false,
+    "iteration": 10
+  },
+  {
+    "id": "r030",
+    "input": "帮我做数据分析，文件是 sales.csv，看看各区域趋势",
+    "expected_agent": "coder",
+    "expected_skill": "data_analysis",
+    "category": "skill",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r031",
+    "input": "用 pandas 统计这份 Excel 并生成趋势图",
+    "expected_agent": "coder",
+    "expected_skill": "data_analysis",
+    "category": "skill",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r032",
+    "input": "对这份 CSV 数据做统计分析，提炼关键洞察",
+    "expected_agent": "coder",
+    "expected_skill": "data_analysis",
+    "category": "skill",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r033",
+    "input": "帮我总结这份文档，输出核心要点和结论",
+    "expected_agent": "rag",
+    "expected_skill": "document_summarize",
+    "category": "skill",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  },
+  {
+    "id": "r034",
+    "input": "对刚才上传的文件做结构化总结，提炼行动项",
+    "expected_agent": "rag",
+    "expected_skill": "document_summarize",
+    "category": "skill",
+    "mode": "chat",
+    "images": false,
+    "iteration": null
+  }
+]

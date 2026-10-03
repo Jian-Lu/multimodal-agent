@@ -1,0 +1,16 @@
+name: document_summarize
+description: 对文档内容进行结构化总结
+triggers:
+  - 总结文档
+  - 文档总结
+  - 提炼要点
+  - 帮我总结
+tools: []
+target_agent: rag
+system_prompt_template: |
+  你是文档总结专家。请对给定的文档内容进行结构化总结，输出：
+  1. 核心要点；2. 关键结论；3. 行动项。语言：{{ language | default('中文') }}
+config_schema:
+  language:
+    type: string
+    default: 中文

@@ -1,0 +1,44 @@
+先说结论：chat.py 本身不做任何意图识别 —— 它只是 SSE 出口，把请求丢给 LangGraph。真正的意图识别分两层，分别对应「选哪个 Agent」和「选哪个 LLM」，而 llm/factory.py 属于后者。
+
+一、完整流程（一次对话请求）
+POST /chat/stream  (chat.py:31)
+   │
+   ├─ validate_image_base64()        图片≤3MB 校验
+   ├─ get_graph()                    取已编译 LangGraph 单例 (graph.py:77)
+   ├─ inputs = {messages, mode, images}
+   ├─ config = {thread_id: user_id:session_id}   ← 多用户隔离
+   │
+   └─ graph.astream_events()  ← 流式执行整张图 (chat.py:57)
+         │
+         ├─ START ─→ supervisor 节点 (hook-wrapped)
+         │              └─【意图识别 #1: 选 Agent】supervisor_node (supervisor.py:52)
+         │                   规则/关键词 → next_agent
+         │                   优先级: images>mode=document>skill>code>search>rag
+         │
+         ├─ conditional_edges 按 next_agent 分发 (graph.py:47)
+         │     → rag | vision | coder | writer | web_search
+         │
+         ├─ 对应 Agent 的 run()
+         │        └─【意图识别 #2: 选 LLM】get_llm_by_intent("固定intent")  (factory.py:147)
+         │              → resolve_model_name → INTENT_MODEL_MAP → 主+备模型 → RoutedLLM
+         │              → astream_text() 逐 token 产出
+         │
+         └─ on_chat_model_stream 事件 ─→ chat.py:58 转成 SSE "message" {delta} 推给前端
+
+二、llm/factory.py 在设计中用在哪
+它是 Model/Gateway 层的模型工厂，只在每个 Agent 的 run() 内部被调用 —— 图上这一层（chat.py / supervisor）看不到它。生产代码调用点有 5 处，intent 都是写死的（因为 Agent 身份已确定，无需再分类）：
+
+调用点	intent	说明
+vision.py:28	"vision", modality="image"	视觉 Agent
+coder.py:37	"code"	编码 Agent
+rag.py:38	"rag"	RAG Agent
+writer.py:39	"document"	Writer Agent
+web_search_agent.py:72	"search"	搜索摘要用快速模型
+factory.py 内部各部件职责：resolve_model_name (98) → INTENT_MODEL_MAP (88) 选主模型；RoutedLLM (104) 包装主+备模型，主模型抛错自动切 ROUTE_FALLBACK_MODEL；get_llm_by_intent (147) 是统一入口并打 INFO 决策日志。
+
+三、两个值得注意的设计点
+1. 双层意图识别是「重复」的。 factory.py 里的 IntentClassifier（52 行，纯关键词、不调 LLM）在生产代码中根本没有被调用 —— grep 显示只有 tests/test_router.py 用它做单测。真正的 Agent 路由用的是 supervisor.py 自己那套 CODE_KEYWORDS/SEARCH_KEYWORDS（supervisor.py:23,31）。也就是说现在存在两份几乎相同的关键词表，IntentClassifier.classify() 是个「预留但未接线」的组件。若想让 supervisor 直接复用 factory 的分类器（单一来源），只需把 supervisor_node 里的规则换成 IntentClassifier.classify() 再映射回 next_agent，图结构可不动。
+
+2. 回答你的 TODO（chat.py:50）。 这段用的是 graph 路由（LangGraph 的 astream_events），不是 LLM 路由。factory.py 的模型路由发生在图内部、Agent 深处，对 chat.py 完全透明 —— 它只关心 on_chat_model_stream 事件里的 token，不关心 token 是哪个模型产出的、走没走 fallback。
+
+分层视角：chat.py(API) → supervisor.py(Harness，选 Agent 的意图识别) → factory.py(Model，按 Agent 选 LLM) → Agent 执行。意图识别分两处，但都不在 chat.py。
